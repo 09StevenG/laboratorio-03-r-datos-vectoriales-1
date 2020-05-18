@@ -1,7 +1,7 @@
 ---
 title: "GF-0604 Procesamiento de datos geográficos<br>Laboratorio 03: R - Datos vectoriales 1"
-author: "Manuel Vargas"
-date: "2020-05-11"
+author: "Steven Guillén Rivera"
+date: "2020-05-18"
 output:
   html_document:
     theme: readable    
@@ -162,6 +162,23 @@ Con la función ```plot()``` del paquete [sf](https://cran.r-project.org/web/pac
 
 ### Ejercicio 8 (25%)
 Extraiga en un nuevo data frame los países de Centroamérica con esperanza de vida mayor o igual a 74 años y genere el mapa de coropletas, con su título correspondiente.
+
 ```{r}
-plot(Centro_america["lifeExp"], main="Países Centroamericanos con esperanza de vida mayor a 74 años")
+mayor_espvid = world[world$name_long == "Nicaragua" |
+                       world$name_long == "Costa Rica" |
+                       world$name_long == "Panama"
+                       , ]
+
+ kable(
+  mayor_espvid[, c("name_long","continent","pop","lifeExp","gdpPercap"), drop = TRUE], 
+  col.names=c("País","Continente","Población","Esperanza de vida","Renta per cápita"),  
+  caption="Datos demográficos de los países de Centroamérica"
+) %>%
+kable_styling()
+ 
+ 
+
+
+plot (mayor_espvid["lifeExp"], main="Países Centroamericanos con esperanza de vida mayor a 74 años")
+
 ```
